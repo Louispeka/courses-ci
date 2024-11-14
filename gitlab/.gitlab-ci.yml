@@ -1,0 +1,451 @@
+# # .gitlab-ci.yml file
+
+# image: node:latest
+# cache:
+#   key:
+#     files:
+#       - package-lock.json
+#   paths:
+#     - node_modules/
+#     - .npm/
+
+# stages:
+#   - validate
+#   - test
+#   - build
+#   - release
+#   - deploy
+
+# install:
+#   stage: .pre
+#   script:
+#     # Define cache dir & use it npm!
+#     - npm ci --cache .npm --prefer-offline
+
+# lint:
+#   stage: validate
+#   script:
+#     - npm run lint  
+
+# unit-test:
+#   stage: test
+#   script:
+#     - npm test
+
+# release:
+#   stage: release
+#   when: manual
+#   rules:
+#     - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+#   before_script:
+#     - git config user.email "$GITLAB_USER_EMAIL"
+#     - git config user.name "$GITLAB_USER_NAME"
+#     - git remote set-url origin "https://gitlab-ci-token:$GITLAB_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git"
+#     - git checkout "$CI_COMMIT_BRANCH"
+#     - git pull origin "$CI_COMMIT_BRANCH" --rebase
+#   script:
+#     - npx --yes release-it --ci
+#////////////////////////////////
+#exercice 1
+
+# .gitlab-ci.yml file
+
+# image: node:latest
+# cache:
+#   key:
+#     files:
+#       - package-lock.json
+#   paths:
+#     - node_modules/
+#     - .npm/
+
+# stages:
+#   - install
+#   - release
+#   - deploy
+
+# install:
+#   stage: install
+#   script:
+#     # Define cache dir & use it npm!
+#     - npm ci --cache .npm --prefer-offline
+
+# lint:
+#   stage: install
+#   script:
+#     - npm run lint
+#   rules:
+#     - if: '$CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+
+# unit-test:
+#   stage: install
+#   script:
+#     - npm test
+#   rules:
+#     - if: '$CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+
+# release:
+#   stage: release
+#   when: manual
+#   rules:
+#     - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+#   before_script:
+#     - git config user.email "$GITLAB_USER_EMAIL"
+#     - git config user.name "$GITLAB_USER_NAME"
+#     - git remote set-url origin "https://gitlab-ci-token:$GITLAB_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git"
+#     - git checkout "$CI_COMMIT_BRANCH"
+#     - git pull origin "$CI_COMMIT_BRANCH" --rebase
+#   script:
+#     - npx --yes release-it --ci
+
+####################################
+#exercice 2
+
+# .gitlab-ci.yml file
+
+# image: node:latest
+# cache:
+#   key:
+#     files:
+#       - package-lock.json
+#   paths:
+#     - node_modules/
+#     - .npm/
+
+# stages:
+#   - install
+#   - test
+#   - release
+#   - deploy
+
+# install:
+#   stage: install
+#   script:
+#     # Define cache dir & use it npm!
+#     - npm ci --cache .npm --prefer-offline
+
+# lint:
+#   stage: install
+#   script:
+#     - npm run lint
+#   rules:
+#     - if: '$CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+
+# unit-test:
+#   stage: install
+#   script:
+#     - npm test
+#   rules:
+#     - if: '$CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+
+# e2e-test:
+#   stage: test
+#   script:
+#     - echo "Hello E2E !"
+#   rules:
+#     - if: '$CI_MERGE_REQUEST_ID'  # Exécute uniquement dans les Merge Requests
+
+# release:
+#   stage: release
+#   when: manual
+#   rules:
+#     - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+#   before_script:
+#     - git config user.email "$GITLAB_USER_EMAIL"
+#     - git config user.name "$GITLAB_USER_NAME"
+#     - git remote set-url origin "https://gitlab-ci-token:$GITLAB_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git"
+#     - git checkout "$CI_COMMIT_BRANCH"
+#     - git pull origin "$CI_COMMIT_BRANCH" --rebase
+#   script:
+#     - npx --yes release-it --ci
+
+#######################################
+# exercice 3
+
+# # .gitlab-ci.yml file
+
+# image: node:latest
+# cache:
+#   key:
+#     files:
+#       - package-lock.json
+#   paths:
+#     - node_modules/
+#     - .npm/
+
+# stages:
+#   - install
+#   - validate
+#   - test
+#   - release
+#   - deploy
+
+# install:
+#   stage: install
+#   script:
+#     # Define cache dir & use it npm!
+#     - npm ci --cache .npm --prefer-offline
+
+# lint:
+#   stage: install
+#   script:
+#     - npm run lint
+#   rules:
+#     - if: '$CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+
+# unit-test:
+#   stage: install
+#   script:
+#     - npm test
+#   rules:
+#     - if: '$CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+
+# e2e-test:
+#   stage: test
+#   script:
+#     - echo "Hello E2E !"
+#   rules:
+#     - if: '$CI_MERGE_REQUEST_ID'  # Exécute uniquement dans les Merge Requests
+
+# only-canary:
+#   stage: validate
+#   script:
+#     - echo "Hello Only Canary !"
+#   rules:
+#     - if: '$ENV_TARGET == "canary"'  # Exécute uniquement si ENV_TARGET est "canary"
+
+# release:
+#   stage: release
+#   when: manual
+#   rules:
+#     - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+#   before_script:
+#     - git config user.email "$GITLAB_USER_EMAIL"
+#     - git config user.name "$GITLAB_USER_NAME"
+#     - git remote set-url origin "https://gitlab-ci-token:$GITLAB_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git"
+#     - git checkout "$CI_COMMIT_BRANCH"
+#     - git pull origin "$CI_COMMIT_BRANCH" --rebase
+#   script:
+#     - npx --yes release-it --ci
+
+###################
+#exercice 4
+
+# image: node:latest
+# cache:
+#   key:
+#     files:
+#       - package-lock.json
+#   paths:
+#     - node_modules/
+#     - .npm/
+
+# stages:
+#   - install
+#   - validate
+#   - test
+#   - release
+#   - deploy
+
+# install:
+#   stage: install
+#   script:
+#     - npm ci --cache .npm --prefer-offline
+
+# lint:
+#   stage: install
+#   script:
+#     - npm run lint
+#   rules:
+#     - if: '$CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+
+# unit-test:
+#   stage: install
+#   script:
+#     - npm test
+#   rules:
+#     - if: '$CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+
+# integration-test:
+#   stage: test
+#   script:
+#     - echo "Hello Integration!"
+#   needs:
+#     - unit-test  # Ne s'exécute que si unit-test réussit
+#   rules:
+#     - if: '$ENV_TARGET == "canary"'  # Exécute uniquement si ENV_TARGET est "canary"
+
+# e2e-test:
+#   stage: test
+#   script:
+#     - echo "Hello E2E!"
+#   needs:
+#     - integration-test  # Ne s'exécute que si integration-test réussit
+#   rules:
+#     - if: '$CI_MERGE_REQUEST_ID'  # Exécute uniquement dans les Merge Requests
+
+# only-canary:
+#   stage: validate
+#   script:
+#     - echo "Hello Only Canary!"
+#   rules:
+#     - if: '$ENV_TARGET == "canary"'  # Exécute uniquement si ENV_TARGET est "canary"
+
+# release:
+#   stage: release
+#   when: manual
+#   rules:
+#     - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+#   before_script:
+#     - git config user.email "$GITLAB_USER_EMAIL"
+#     - git config user.name "$GITLAB_USER_NAME"
+#     - git remote set-url origin "https://gitlab-ci-token:$GITLAB_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git"
+#     - git checkout "$CI_COMMIT_BRANCH"
+#     - git pull origin "$CI_COMMIT_BRANCH" --rebase
+#   script:
+#     - npx --yes release-it --ci
+
+
+#####################################
+#exercice5
+
+# image: node:latest
+
+# # Définir les caches et la configuration de base pour éviter la répétition
+# .cache: &cache
+#   key:
+#     files:
+#       - package-lock.json
+#   paths:
+#     - node_modules/
+#     - .npm/
+
+# .common_script: &common_script
+#   script:
+#     - npm run lint
+#   rules:
+#     - if: '$CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+
+# stages:
+#   - install
+#   - validate
+#   - test
+#   - release
+#   - deploy
+
+# install:
+#   stage: install
+#   cache: *cache
+#   script:
+#     - npm ci --cache .npm --prefer-offline
+
+# lint:
+#   <<: *common_script
+#   stage: install
+
+# unit-test:
+#   <<: *common_script
+#   stage: install
+#   script:
+#     - npm test
+
+# integration-test:
+#   stage: test
+#   script:
+#     - echo "Hello Integration!"
+#   needs:
+#     - unit-test
+#   rules:
+#     - if: '$ENV_TARGET == "canary"'
+
+# e2e-test:
+#   stage: test
+#   script:
+#     - echo "Hello E2E!"
+#   needs:
+#     - integration-test
+#   rules:
+#     - if: '$CI_MERGE_REQUEST_ID'
+
+# only-canary:
+#   stage: validate
+#   script:
+#     - echo "Hello Only Canary!"
+#   rules:
+#     - if: '$ENV_TARGET == "canary"'
+
+# release:
+#   stage: release
+#   when: manual
+#   rules:
+#     - if: '$CI_COMMIT_BRANCH == "main" && $CI_COMMIT_TAG == null && $CI_COMMIT_TITLE !~ /^chore: release/'
+#   before_script:
+#     - git config user.email "$GITLAB_USER_EMAIL"
+#     - git config user.name "$GITLAB_USER_NAME"
+#     - git remote set-url origin "https://gitlab-ci-token:$GITLAB_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git"
+#     - git checkout "$CI_COMMIT_BRANCH"
+#     - git pull origin "$CI_COMMIT_BRANCH" --rebase
+#   script:
+#     - npx --yes release-it --ci
+
+#exercice bonus 1
+
+stages:
+  - install
+  - validate
+  - test
+  - build
+  - release
+  - deploy
+
+# Job de build pour générer des artefacts HTML
+build:
+  stage: build
+  script:
+    - npm run build  # Génère les fichiers dans /dist
+  artifacts:
+    paths:
+      - dist/  # Stocke le dossier /dist comme artefact
+    expire_in: 1 week  # Expiration des artefacts après 1 semaine
+
+#exercice bonus 2 - projet perso
+#mon projet perso https://github.com/Louispeka/terraform-to-deploy-a-wordpress-/blob/main/documentation/pages/schema.adoc
+
+name: Terraform CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    env:
+      TF_VERSION: '1.5.0'  
+      TF_WORKING_DIR: './terraform/'  
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan
+        env:
+          TF_VAR__variable: ${{ variables et secret }} # je dois ajouter mes variables env et mes secrets mais je n'ai plus acces a l'infrastructure 
